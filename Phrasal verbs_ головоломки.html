@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Phrasal verbs: головоломки</title>
+<style>
+:root{--bg:#f1f1f8;--card:#fff;--tx:#1d1d2b;--mu:#62627a;--ac:#5b5bd6;--ac2:#e9e9fb;--ok:#1e9e4f;--no:#d64545;--ye:#e0a21b;--bd:#d3d3ea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15152a;--card:#202040;--tx:#ececfa;--mu:#a6a6c6;--ac:#8a8af0;--ac2:#2c2c58;--bd:#3d3d70}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:17px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(135deg,#5b5bd6,#c14b8a);color:#fff;padding:16px;text-align:center}
+header h1{margin:0;font-size:24px}header p{margin:4px 0 0;font-size:14px;opacity:.9}
+.score{display:inline-block;margin-top:8px;background:#ffffff30;border-radius:20px;padding:2px 14px;font-weight:600}
+main{max-width:820px;margin:0 auto;padding:6px 14px 40px}
+nav{display:flex;gap:6px;overflow-x:auto;padding:10px 0;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+nav button{flex:none;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:20px;padding:8px 14px;font:inherit;cursor:pointer}
+nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.box{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:12px}
+h2{margin:0 0 4px;font-size:20px}.mu{color:var(--mu);font-size:14px}
+.btn{border:0;background:var(--ac);color:#fff;border-radius:10px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer;margin:6px 6px 0 0}
+.btn.alt{background:var(--ac2);color:var(--tx);border:1px solid var(--bd)}
+.chip{display:inline-block;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;padding:8px 13px;margin:4px;font:inherit;cursor:pointer}
+.chip.on{background:var(--ac);color:#fff;border-color:var(--ac)}.chip.g{background:var(--ok);color:#fff;border-color:var(--ok)}.chip.x{background:var(--ac2);color:var(--mu)}
+.ex{background:var(--ac2);border-radius:10px;padding:10px 12px;margin-top:8px}
+.msg{font-weight:600;margin:10px 0}.ok{color:var(--ok)}.no{color:var(--no)}
+.clue{background:var(--ac2);border-left:4px solid var(--ac);border-radius:8px;padding:8px 12px;margin:6px 0}
+table.gr{border-collapse:collapse;margin:10px 0}.gr th,.gr td{border:1px solid var(--bd);padding:6px;text-align:center;font-size:15px}
+.gr td.c{width:78px;height:50px;font-size:24px;cursor:pointer;user-select:none}.gr td.c.bad{background:#d6454533}
+.ans{min-height:56px;border:2px dashed var(--bd);border-radius:12px;padding:6px;margin:10px 0}
+input[type=text]{font:inherit;border:1px solid var(--bd);border-radius:8px;padding:9px;background:var(--card);color:var(--tx);width:100%;margin-top:8px}
+table.ref{width:100%;border-collapse:collapse}.ref td,.ref th{border-bottom:1px solid var(--bd);padding:6px 8px;text-align:left;font-size:15px;vertical-align:top}.ref th{color:var(--ac)}
+</style></head><body>
+<header><h1>🧠 Phrasal verbs: головоломки</h1><p>turn · run · break</p><span class="score">⭐ <b id="sc">0</b></span></header>
+<main><nav id="nav"></nav><div id="m"></div></main>
+<script>
+var PV=[["turn up","appear","появляться"],["turn down","refuse an offer, invitation, suggestion","отказываться от предложения"],["turn off","switch off","выключать"],["turn to sb","go to sb for help","обратиться за помощью"],["turn into","change into sth different","превратиться во что-то"],["run off","go away","убежать, уйти"],["run across","meet by chance","случайно встретить"],["run away with","escape with","сбежать с чем-то"],["run after","chase","гнаться за"],["run into","face (problems)","столкнуться с проблемами"],["run up","accumulate","накапливать (долги)"],["run down","(car batteries) go flat","разряжаться (о батарейке)"],["run out of","have no more","закончиться"],["run over","revise, go over, or drive over sth","повторить; переехать"],["run along","hurry up","поторопиться"],["break away","escape","вырваться"],["break down","(of machines) stop working","ломаться (о машинах)"],["break into","enter by force","вломиться"],["break in","enter by force (no object)","вломиться (без дополнения)"],["break out","(of fire) start","вспыхнуть (о пожаре)"],["break through","force your way through a barrier","прорваться через преграду"]];
+var score=0,$=function(i){return document.getElementById(i)};
+function add(n){score+=n;$("sc").textContent=score}
+function sh(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e}
+function box(p,h,s){var d=el("div","box","<h2>"+h+"</h2><div class='mu'>"+s+"</div>");p.appendChild(d);return d}
+function mean(n){return PV.filter(function(v){return v[0]==n})[0]}
+var tabs=[["📖 Список",ref],["🔐 Code Breaker",code],["🧮 Logic Grid",grid],["🧱 Sentence Builder",build],["🚪 Escape Room",esc]];
+var nav=$("nav");tabs.forEach(function(t,i){var b=el("button","",t[0]);b.onclick=function(){go(i)};nav.appendChild(b)});
+function go(i){[].forEach.call(nav.children,function(b,k){b.className=k==i?"on":""});$("m").innerHTML="";tabs[i][1]($("m"))}
+function ref(p){var b=box(p,"Список фразовых глаголов","Сначала прочитайте, потом играйте.");var t="<table class='ref'><tr><th>Phrasal verb</th><th>Meaning</th><th>По-русски</th></tr>";PV.forEach(function(v){t+="<tr><td><b>"+v[0]+"</b></td><td>"+v[1]+"</td><td>"+v[2]+"</td></tr>"});b.appendChild(el("div","",t+"</table>"))}
+// 1 CODE BREAKER
+var VB=["turn","run","break"],PT=["up","down","off","to","into","across","away with","after","out of","over","along","in","out","through","away"];
+function pk(n){var w=n.replace(" sb","").split(" ");return[w[0],w.slice(1).join(" ")]}
+function code(p){var b=box(p,"Code Breaker: взломай код","Угадай фразовый глагол за 6 попыток. Выбери глагол и частицу. После каждой попытки зелёный цвет значит «верно», а ещё ты узнаёшь, что значит твой вариант. Так можно исключать.");
+var sec=PV[Math.floor(Math.random()*PV.length)],sk=pk(sec[0]),tr=0,vs=null,ps=null,fin=false;
+b.appendChild(el("div","clue","🔎 Значение секретного глагола: <b>"+sec[1]+"</b>"));
+var vr=el("div"),pr=el("div"),hist=el("div"),msg=el("div","msg");
+VB.forEach(function(v){var c=el("button","chip",v);c.onclick=function(){if(fin)return;vs=v;[].forEach.call(vr.children,function(x){x.className="chip"+(x==c?" on":"")})};vr.appendChild(c)});
+PT.forEach(function(v){var c=el("button","chip",v);c.onclick=function(){if(fin)return;ps=v;[].forEach.call(pr.children,function(x){x.className="chip"+(x==c?" on":"")})};pr.appendChild(c)});
+b.appendChild(el("div","mu","1) Глагол"));b.appendChild(vr);b.appendChild(el("div","mu","2) Частица"));b.appendChild(pr);
+var g=el("button","btn","Проверить код");g.onclick=function(){if(fin)return;if(!vs||!ps){msg.innerHTML="<span class='no'>Выбери глагол и частицу</span>";return}tr++;var vok=vs==sk[0],pok=ps==sk[1];var ph=vs+" "+ps,m=PV.filter(function(x){var k=pk(x[0]);return k[0]==vs&&k[1]==ps})[0];
+var row=el("div","",'<span class="chip '+(vok?"g":"x")+'">'+vs+'</span><span class="chip '+(pok?"g":"x")+'">'+ps+'</span> <span class="mu">'+(m?"«"+ph+"» = "+m[1]:"такого глагола нет в списке")+"</span>");hist.appendChild(row);
+if(vok&&pok){fin=true;var pt=Math.max(1,7-tr);add(pt);msg.innerHTML="<span class='ok'>🔓 Код взломан! +"+pt+" баллов. "+sec[0]+" = "+sec[2]+"</span>"}else if(tr>=6){fin=true;msg.innerHTML="<span class='no'>🔒 Попытки закончились. Ответ: <b>"+sec[0]+"</b> = "+sec[2]+"</span>"}else msg.textContent="Попытка "+tr+" из 6"};
+b.appendChild(g);var r=el("button","btn alt","↻ Новый код");r.onclick=function(){go(1)};b.appendChild(r);b.appendChild(msg);b.appendChild(hist)}
+// 2 LOGIC GRID
+var LG=[{p:["Aida","Bek","Dana"],v:["turn down","run across","break down"],s:[1,2,0],c:["Aida’s laptop works perfectly and she hasn’t refused anything.","Bek didn’t meet anybody by chance and he hasn’t refused anything."]},
+{p:["Aida","Bek","Dana","Eldar"],v:["run out of","break into","turn off","run after"],s:[2,3,0,1],c:["The person who chased the thief is not Aida or Eldar.","Dana didn’t chase anyone and didn’t enter anywhere by force.","Eldar didn’t switch anything off and didn’t run out of anything.","Aida has plenty of everything."]},
+{p:["Aida","Bek","Dana","Eldar"],v:["turn up","break out","run down","turn into"],s:[0,1,2,3],c:["Aida had nothing to do with a fire or a flat battery.","Bek’s phone battery is fine and he didn’t appear anywhere.","Dana didn’t change into anything and didn’t see a fire.","Eldar’s battery is fine and he wasn’t the one who appeared late.","Eldar told a story about a caterpillar and a butterfly."]}];
+var gi=0;
+function grid(p){var q=LG[gi],b=box(p,"Logic Grid: кто что сделал? (задача "+(gi+1)+" из 3)","Нажимай на клетку: ✖ значит «нет», ✔ значит «да». У каждого человека ровно один глагол. Используй подсказки и метод исключения.");
+var st=q.p.map(function(){return q.v.map(function(){return 0})}),t=el("table","gr"),hr=el("tr","","<th></th>"+q.v.map(function(v){return"<th>"+v+"</th>"}).join(""));t.appendChild(hr);var cs=[];
+q.p.forEach(function(n,i){var r=el("tr","","<th>"+n+"</th>");cs[i]=[];q.v.forEach(function(v,j){var c=el("td","c","");c.onclick=function(){st[i][j]=(st[i][j]+1)%3;c.textContent=["","✖","✔"][st[i][j]];c.className="c"};cs[i][j]=c;r.appendChild(c)});t.appendChild(r)});
+var w=el("div");w.style.overflowX="auto";w.appendChild(t);b.appendChild(w);
+q.c.forEach(function(x,i){b.appendChild(el("div","clue",(i+1)+". "+x))});
+b.appendChild(el("div","mu","Значения: "+q.v.map(function(v){return"<b>"+v+"</b> = "+mean(v)[1]}).join("; ")));
+var msg=el("div","msg"),done=false,ck=el("button","btn","Проверить");ck.onclick=function(){var bad=0,miss=0;q.p.forEach(function(n,i){var ch=st[i].indexOf(2);cs[i].forEach(function(c){c.className="c"});if(ch<0)miss++;else if(ch!=q.s[i]){bad++;cs[i][ch].className="c bad"}});
+if(!bad&&!miss){if(!done){add(gi+3);done=true}msg.innerHTML="<span class='ok'>🎉 Верно! +"+(gi+3)+" баллов.</span>";var nx=el("button","btn",gi<2?"Следующая задача →":"↻ Сначала");nx.onclick=function(){gi=(gi+1)%3;go(2)};msg.appendChild(el("br"));msg.appendChild(nx)}else msg.innerHTML="<span class='no'>Пока не сходится"+(miss?" (не у всех есть ✔)":"")+(bad?" (красные клетки неверны)":"")+". Перечитай подсказки.</span>"};
+b.appendChild(ck);b.appendChild(msg)}
+// 3 SENTENCE BUILDER
+var SB=[["She turned down the job offer","Она отказалась от предложения о работе"],["The old car broke down on the road","Старая машина сломалась на дороге"],["We ran out of milk this morning","У нас закончилось молоко сегодня утром"],["A fire broke out in the old factory","В старой фабрике вспыхнул пожар"],["Please turn off your phones in the cinema","Пожалуйста, выключайте телефоны в кинотеатре"],["I ran across my old teacher in the park","Я случайно встретил старого учителя в парке"],["The dog ran after the cat across the garden","Собака гналась за кошкой по саду"],["A caterpillar turns into a butterfly","Гусеница превращается в бабочку"],["Thieves broke into the shop at night","Воры вломились в магазин ночью"],["He always turns to his brother for help","Он всегда обращается к брату за помощью"]];
+function build(p){var b=box(p,"Sentence Builder: собери предложение","Нажимай на слова по порядку. Нажми на слово в ответе, чтобы убрать его.");var q=sh(SB).slice(0,6),i=0,s=0,c=el("div");b.appendChild(c);
+function show(){if(i>=q.length){c.innerHTML="<p class='msg'>🏁 Результат: "+s+" / "+q.length+"</p>";var r=el("button","btn","↻ Ещё раз");r.onclick=function(){go(3)};c.appendChild(r);return}
+var t=q[i][0].split(" "),pool=sh(t.map(function(w,k){return{w:w,k:k}})),used=[],tries=0;if(pool.map(function(x){return x.w}).join(" ")==q[i][0])pool=pool.reverse();
+c.innerHTML="<p class='mu'>"+(i+1)+" / "+q.length+"</p><div class='clue'>🇷🇺 "+q[i][1]+"</div>";var ans=el("div","ans"),tl=el("div"),msg=el("div","msg");c.appendChild(ans);c.appendChild(tl);
+function draw(){ans.innerHTML="";tl.innerHTML="";used.forEach(function(x,n){var u=el("button","chip on",x.w);u.onclick=function(){used.splice(n,1);pool.push(x);draw()};ans.appendChild(u)});pool.forEach(function(x,n){var u=el("button","chip",x.w);u.onclick=function(){pool.splice(n,1);used.push(x);draw()};tl.appendChild(u)})}draw();
+var ck=el("button","btn","Проверить");ck.onclick=function(){var a=used.map(function(x){return x.w}).join(" ");if(a==q[i][0]){var pt=tries?1:2;s++;add(pt);msg.innerHTML="<span class='ok'>✅ +"+pt+"</span>";ck.style.display="none";var nx=el("button","btn","Дальше →");nx.onclick=function(){i++;show()};c.appendChild(nx)}else{tries++;msg.innerHTML="<span class='no'>Не так. Подумай про порядок слов.</span>"}};c.appendChild(ck);c.appendChild(msg)}show()}
+// 4 ESCAPE ROOM
+var ES=[["It is dark. The old lift in the house has just ___ (stopped working), so you take the stairs.",["break down","broke down","broken down","breaks down"],"ломаться (о машинах)"],["In the library you ___ (meet by chance) an old diary on the floor.",["run across","ran across","runs across"],"случайно встретить"],["A ghost ___ (appear) in the hall at midnight!",["turn up","turned up","turns up"],"появляться"],["Fire! A fire ___ (start) in the kitchen.",["break out","broke out","broken out","breaks out"],"вспыхнуть (о пожаре)"],["The ghost runs away, but you have no time. You ___ (enter by force) the secret room.",["break into","broke into","breaks into"],"вломиться"],["Inside you find a phone. You ___ (go to sb for help) the police.",["turn to","turned to","turn to the police","turned to the police"],"обратиться за помощью"]];
+function esc(p){var b=box(p,"Escape Room: выберись из дома","Шесть замков. Впиши фразовый глагол по значению в скобках. Любая форма подходит (turn up или turned up).");var i=0,c=el("div");b.appendChild(c);
+function show(){if(i>=ES.length){c.innerHTML="<p class='msg ok'>🚪 Дверь открыта! Вы выбрались из дома!</p>";var r=el("button","btn","↻ Заново");r.onclick=function(){go(4)};c.appendChild(r);return}
+var e=ES[i],hint=false;c.innerHTML="<p class='mu'>🔒 Замок "+(i+1)+" из "+ES.length+"</p><div class='clue' style='font-size:19px'>"+e[0]+"</div>";var inp=el("input");inp.type="text";inp.placeholder="phrasal verb…";var msg=el("div","msg");c.appendChild(inp);
+var ck=el("button","btn","🔑 Открыть");function chk(){var v=inp.value.toLowerCase().replace(/[^a-z ]/g,"").replace(/\s+/g," ").trim();if(e[1].indexOf(v)>=0){var pt=hint?1:3;add(pt);msg.innerHTML="<span class='ok'>🔓 Открыто! +"+pt+"</span>";ck.style.display=hb.style.display="none";inp.disabled=true;var nx=el("button","btn","Дальше →");nx.onclick=function(){i++;show()};c.appendChild(nx)}else msg.innerHTML="<span class='no'>Замок не открылся. Попробуй ещё.</span>"}
+ck.onclick=chk;inp.onkeydown=function(x){if(x.key=="Enter")chk()};var hb=el("button","btn alt","💡 Подсказка (−2 балла)");hb.onclick=function(){hint=true;msg.innerHTML="По-русски: <b>"+e[2]+"</b>. Начинается на <b>"+e[1][0].slice(0,2)+"…</b>"};c.appendChild(ck);c.appendChild(hb);c.appendChild(msg)}show()}
+go(0);
+</script></body></html>
